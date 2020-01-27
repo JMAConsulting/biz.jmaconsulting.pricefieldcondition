@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Pricefieldcontition</base>
+  <class>PriceFieldCondition</class>
+  <name>civicrm_price_field_condition</name>
+  <comment>FIXME</comment>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique PriceFieldCondition ID</comment>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>entity_id</name>
+    <type>int unsigned</type>
+    <comment>Entity id of the entity we are affecting</comment>
+  </field>
+  <field>
+    <name>entity_table</name>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>Entity table of the affacted entity</comment>
+  </field>
+  <index>
+    <name>UI_entity_id_entity_table</name>
+    <fieldName>entity_id</fieldName>
+    <fieldName>entity_table</fieldName>
+    <unique>true</unique>
+  </index>
+  <field>
+    <name>condition_entity_id</name>
+    <type>int unsigned</type>
+    <comment>Entity id that determines if this entity is visible or not</comment>
+  </field>
+  <field>
+    <name>condition_entity_table</name>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>Entity table of the condition</comment>
+  </field>
+
+
+
+
+</table>
