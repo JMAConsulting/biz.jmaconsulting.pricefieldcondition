@@ -190,7 +190,7 @@ function pricefieldcondition_civicrm_buildForm($formName, &$form) {
             });");
         }
         elseif ($condition['values'][$condition['id']]['condition_entity_table'] === 'civicrm_price_value') {
-          $tatgetField = $condition['values'][$condition['id']]['condition_entity_id';
+          $tatgetField = $condition['values'][$condition['id']]['condition_entity_id'];
           CRM_Core_Resources::singleton()->addScript(
             "CRM.$(function($) {
               $(\"input[name='price_" . $targetField . "']\").change(function() {
