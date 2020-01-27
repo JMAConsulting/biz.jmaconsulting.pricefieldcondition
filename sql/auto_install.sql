@@ -57,9 +57,11 @@ CREATE TABLE `civicrm_price_field_condition` (
 ,
         PRIMARY KEY (`id`)
  
-    ,     UNIQUE INDEX `UI_entity_id_entity_table`(
+    ,     UNIQUE INDEX `UI_entity_id_entity_table_condition`(
         entity_id
       , entity_table
+      , condition_entity_id
+      , condition_entity_table
   )
   
  

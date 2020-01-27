@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 
 <table>
-  <base>CRM/Pricefieldcontition</base>
+  <base>CRM/Pricefieldcondition</base>
   <class>PriceFieldCondition</class>
   <name>civicrm_price_field_condition</name>
   <comment>FIXME</comment>
@@ -29,12 +29,6 @@
     <length>255</length>
     <comment>Entity table of the affacted entity</comment>
   </field>
-  <index>
-    <name>UI_entity_id_entity_table</name>
-    <fieldName>entity_id</fieldName>
-    <fieldName>entity_table</fieldName>
-    <unique>true</unique>
-  </index>
   <field>
     <name>condition_entity_id</name>
     <type>int unsigned</type>
@@ -46,8 +40,12 @@
     <length>255</length>
     <comment>Entity table of the condition</comment>
   </field>
-
-
-
-
+  <index>
+    <name>UI_entity_id_entity_table_condition</name>
+    <fieldName>entity_id</fieldName>
+    <fieldName>entity_table</fieldName>
+    <fieldName>condition_entity_id</fieldName>
+    <fieldName>condition_entity_table</fieldName>
+    <unique>true</unique>
+  </index>
 </table>

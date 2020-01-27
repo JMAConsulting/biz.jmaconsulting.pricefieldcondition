@@ -56,17 +56,16 @@ class CRM_Pricefieldcondition_Upgrader extends CRM_Pricefieldcondition_Upgrader_
   }
 
   /**
-   * Example: Run a couple simple queries.
+   * Alter Table index to allow for multiple conditions on the one field
    *
    * @return TRUE on success
    * @throws Exception
-   *
+   */
   public function upgrade_4200() {
-    $this->ctx->log->info('Applying update 4200');
-    CRM_Core_DAO::executeQuery('UPDATE foo SET bar = "whiz"');
-    CRM_Core_DAO::executeQuery('DELETE FROM bang WHERE willy = wonka(2)');
+    $this->ctx->log->info('Applying update 1001');
+    $this->executeSqlFile('sql/update_1001.sql');
     return TRUE;
-  } // */
+  }
 
 
   /**

@@ -8,7 +8,7 @@
  */
 class CRM_Pricefieldcondition_ExtensionUtil {
   const SHORT_NAME = "pricefieldcondition";
-  const LONG_NAME = "biz.jmaconsulting.pricefieldcontition";
+  const LONG_NAME = "biz.jmaconsulting.pricefieldcondition";
   const CLASS_PREFIX = "CRM_Pricefieldcondition";
 
   /**

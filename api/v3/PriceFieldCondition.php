@@ -1,5 +1,5 @@
 <?php
-use CRM_Pricefieldcontition_ExtensionUtil as E;
+use CRM_Pricefieldcondition_ExtensionUtil as E;
 
 /**
  * PriceFieldCondition.create API specification (optional).

@@ -5,7 +5,7 @@ return array (
   0 => 
   array (
     'name' => 'PriceFieldCondition',
-    'class' => 'CRM_Pricefieldcontition_DAO_PriceFieldCondition',
+    'class' => 'CRM_Pricefieldcondition_DAO_PriceFieldCondition',
     'table' => 'civicrm_price_field_condition',
   ),
 );
