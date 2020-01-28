@@ -202,33 +202,46 @@ function pricefieldcondition_civicrm_buildForm($formName, &$form) {
                    $(\"#price_" . $fieldId . "\").parent().parent().hide();
                  }
                 });
-                $(\"#price_" . $fieldId . "\").parent().parent().hide();
+                var parentFieldValue = $(\"input[name='price_" . $parentField . "']\").val();
+                if (parentFieldValue == " . $condition['values'][$condition['id']]['condition_entity_id'] . ") {
+                  $(\"#price_" . $fieldId . "\").parent().parent().show();
+                }
+                else {
+                  $(\"#price_" . $fieldId . "\").parent().parent().hide();
+                }
               });");
           }
         }
         else {
-          $affectedFields = $ifClauses = [];
+          $affectedFields = $ifClauses = $startupIfClauses = [];
           foreach ($condition['values'] as $con) {
             $parentField = civicrm_api3('PriceFieldValue', 'getsingle', ['id' => $con['condition_entity_id']])['price_field_id'];
             if (array_search($parentField, $affectedFields) === FALSE) {
               $affectedFields[] = $parentField;
             }
             $ifClauses[$parentField][] = "\$(this).val() == " . $con['condition_entity_id'];
+            $startupIfClauses[$parentField][] = "parentFieldValue == " . $con['condition_entity_id'];
           }
           if (count($affectedFields) == 1) {
             $parentField = $affectedFields[0];
             CRM_Core_Resources::singleton()->addScript(
               "CRM.$(function($) {
               $(\"input[name='price_" . $parentField . "']\").change(function() {
-              if (" . implode(' || ', $ifClauses[$parentField]) . ") {
-                   $(\"#price_" . $fieldId . "\").parent().parent().show();
-                 }
-                 else {
-                   $(\"#price_" . $fieldId . "\").parent().parent().hide();
-                 }
-                });
+                if (" . implode(' || ', $ifClauses[$parentField]) . ") {
+                  $(\"#price_" . $fieldId . "\").parent().parent().show();
+                }
+                else {
+                 $(\"#price_" . $fieldId . "\").parent().parent().hide();
+                }
+              });
+              var parentFieldValue = $(\"input[name='price_" . $parentField . "']\").val();
+              if (" . implode(' || ', $startupIfClauses[$parentField]) . ") {
+                $(\"#price_" . $fieldId . "\").parent().parent().show();
+              }
+              else {
                 $(\"#price_" . $fieldId . "\").parent().parent().hide();
-              });");
+              }
+            });");
           }
           else {
             // @todo handle multiple separate price fields for which options are selected.
