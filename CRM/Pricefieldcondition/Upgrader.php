@@ -61,7 +61,7 @@ class CRM_Pricefieldcondition_Upgrader extends CRM_Pricefieldcondition_Upgrader_
    * @return TRUE on success
    * @throws Exception
    */
-  public function upgrade_4200() {
+  public function upgrade_1001() {
     $this->ctx->log->info('Applying update 1001');
     $this->executeSqlFile('sql/update_1001.sql');
     return TRUE;
