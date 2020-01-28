@@ -46,7 +46,7 @@ class CRM_Pricefieldcondition_Upgrader_Base {
     if (!self::$instance) {
       // FIXME auto-generate
       self::$instance = new CRM_Pricefieldcondition_Upgrader(
-        'biz.jmaconsulting.pricefieldcontition',
+        'biz.jmaconsulting.pricefieldcondition',
         realpath(__DIR__ . '/../../../')
       );
     }
