@@ -173,12 +173,11 @@ function pricefieldcondition_civicrm_buildForm($formName, &$form) {
       }
     }
     if (!empty($selectOptions)) {
-      $ids = [1, 2];
+      $ids = [1, 2, 3, 4];
       foreach ($ids as $id) {
         $form->add('Select', 'condition_field_' . $id, E::ts('Conditional Field'), $selectOptions);
       }
       if (!empty($defaults)) {
-        drupal_set_message(json_encode($defaults));
         $form->setDefaults($defaults);
       }
       CRM_Core_Region::instance('form-body')->add([
@@ -187,7 +186,6 @@ function pricefieldcondition_civicrm_buildForm($formName, &$form) {
     }
   }
   if ($formName === 'CRM_Event_Form_Registration_Register' || $formName === 'CRM_Event_Form_Registration_AdditionalParticipant') {
-    $affectedFields = $ifClauses = [];
     foreach ($form->_priceSet['fields'] as $fieldId => $details) {
       $condition = civicrm_api3('PriceFieldCondition', 'get', ['squential' => 1, 'entity_id' => $fieldId, 'entity_table' => 'civicrm_price_field']);
       if (!empty($condition['values'])) {
@@ -209,19 +207,20 @@ function pricefieldcondition_civicrm_buildForm($formName, &$form) {
           }
         }
         else {
+          $affectedFields = $ifClauses = [];
           foreach ($condition['values'] as $con) {
             $parentField = civicrm_api3('PriceFieldValue', 'getsingle', ['id' => $con['condition_entity_id']])['price_field_id'];
             if (array_search($parentField, $affectedFields) === FALSE) {
               $affectedFields[] = $parentField;
             }
-            $ifClause[$parentField][] = "\$(this).val() == " . $con['condition_entity_id'];
+            $ifClauses[$parentField][] = "\$(this).val() == " . $con['condition_entity_id'];
           }
           if (count($affectedFields) == 1) {
             $parentField = $affectedFields[0];
             CRM_Core_Resources::singleton()->addScript(
               "CRM.$(function($) {
               $(\"input[name='price_" . $parentField . "']\").change(function() {
-              if (" . implode(' || ', $ifClause[$parentField]) . ") {
+              if (" . implode(' || ', $ifClauses[$parentField]) . ") {
                    $(\"#price_" . $fieldId . "\").parent().parent().show();
                  }
                  else {
@@ -251,7 +250,13 @@ function pricefieldcondition_civicrm_postProcess($formName, &$form) {
       ]);
       $fieldId = $field['id'];
     }
-    $ids = [1, 2];
+    $currentRecords = civicrm_api3('PriceFieldCondition', 'get', ['entity_id' => $fieldId, 'entity_table' => 'civicrm_price_field']);;
+    if (!empty($currentRecords['values'])) {
+      foreach ($currentRecords['values'] as $currentRecord) {
+        civicrm_api3('PriceFieldCondition', 'delete', ['id' => $currentRecord['id']]);
+      }
+    }
+    $ids = [1, 2, 3, 4];
     foreach ($ids as $id) {
       $conditionField = 'condition_field_' . $id;
       if (!empty($params[$conditionField])) {
