@@ -200,6 +200,7 @@ function pricefieldcondition_civicrm_buildForm($formName, &$form) {
                  }
                  else {
                    $(\"#price_" . $fieldId . "\").parent().parent().hide();
+                   $(\"#price_" . $fieldId . "\").val('').trigger('change');
                  }
                 });
                 var parentFieldValue = $(\"input[name='price_" . $parentField . "']\").val();
@@ -208,6 +209,7 @@ function pricefieldcondition_civicrm_buildForm($formName, &$form) {
                 }
                 else {
                   $(\"#price_" . $fieldId . "\").parent().parent().hide();
+                  $(\"#price_" . $fieldId . "\").val('').trigger('change');
                 }
               });");
           }
@@ -231,7 +233,8 @@ function pricefieldcondition_civicrm_buildForm($formName, &$form) {
                   $(\"#price_" . $fieldId . "\").parent().parent().show();
                 }
                 else {
-                 $(\"#price_" . $fieldId . "\").parent().parent().hide();
+                  $(\"#price_" . $fieldId . "\").parent().parent().hide();
+                  $(\"#price_" . $fieldId . "\").val('').trigger('change');
                 }
               });
               var parentFieldValue = $(\"input[name='price_" . $parentField . "']\").val();
@@ -240,6 +243,7 @@ function pricefieldcondition_civicrm_buildForm($formName, &$form) {
               }
               else {
                 $(\"#price_" . $fieldId . "\").parent().parent().hide();
+                $(\"#price_" . $fieldId . "\").val('').trigger('change');
               }
             });");
           }
